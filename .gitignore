@@ -1,0 +1,8 @@
+
+bin/.ipynb_checkpoints/
+
+*.pyc
+
+outputs/PARP_sep_2023/gnina/sminaout/
+
+outputs/PARP_sep_2023/gnina/val/sminalogs/

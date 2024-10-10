@@ -1,0 +1,12 @@
+receptor = 7KK4_clean_H.pdb
+center_x = 50
+center_y = 95
+center_z = 62
+size_x = 20
+size_y = 28
+size_z = 18
+exhaustiveness = 3
+num_modes = 3
+cpu = 3
+# execute below to run
+# ls *.mol2 |time parallel -j 3 --eta '../../bin/smina -l {} -o out/{.}.sdf --config config_10_10_7KK4.txt > logs/{.}.log'
