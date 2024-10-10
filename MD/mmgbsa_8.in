@@ -1,0 +1,9 @@
+&general
+startframe = 1,         endframe   = 1,
+interval   = 1,         verbose    = 2,
+use_sander = 1,         netcdf     = 1,
+strip_mask = :SOL,NA,CL,
+/
+&gb
+igb = 8,
+/

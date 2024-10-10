@@ -1,0 +1,12 @@
+&general
+startframe = 1,         endframe   = 1,
+interval   = 1,         verbose    = 2,
+use_sander = 1,         netcdf     = 1,
+strip_mask = :SOL,NA,CL,
+/
+/
+&pb
+indi = 1.0, exdi = 80.0,
+istrng     = 0.0,       radiopt = 0,  inp = 1,
+fillratio  = 4.0, scale = 2
+/

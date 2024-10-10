@@ -1,0 +1,22 @@
+; MINIMIZATION RUN
+title           = Minimization          ; Title
+;
+; Minimization parameters
+integrator      = steep                 ; Steepest Descent algorithm
+emtol           = 10.0                 ; Stop minimization when max force < 10.0 kJ/mol·nm
+emstep          = 0.01                  ; Energy step size (nm)
+nsteps          = 50000                 ; Max number of minimization steps
+
+; ELECTROSTATIC AND VDWAALS parameters
+nstlist         = 1                     ; Frequency to update neighbor list and long-range forces
+cutoff-scheme   = Verlet
+ns_type         = grid                  ; Determination of the neighbor list
+rlist           = 1.2                   ; Cut-off of the neighbor list
+coulombtype     = PME                   ; Long-range electrostatic interactions method
+rcoulomb        = 1.2                   ; Long-range electrostatic cut-off
+vdwtype         = cutoff                ; van der Waals interaction method
+vdw-modifier    = force-switch          ; Switch is activated
+rvdw-switch     = 1.0
+rvdw            = 1.2                   ; van der Waals cut-off
+pbc             = xyz                   ; Periodic boundary conditions
+DispCorr        = no

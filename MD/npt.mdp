@@ -1,0 +1,69 @@
+; EQUILIBRATION RUN
+title                   = Protein-ligand complex Equilibration Run
+define                  = -DPOSRES      ; position restraints on
+;
+; RUN PARAMETERS
+integrator              = md            ; leap-frog integrator
+nsteps                  = 250000        ; 0.002 * 250 000 = 500 ps
+dt                      = 0.002         ; 2 fs
+;
+; OUTPUT CONTROL
+; Output frequency for coords (x), velocities (v) and forces (f) = *.trr
+nstxout                 = 10000   ; [steps] save coordinates every 100 ps
+nstvout                 = 10000   ; [steps] write velocities every 100 ps
+nstfout                 = 10000   ; [steps] write forces every 100 ps
+;
+; Output frequency for coordinates = *.xtc
+nstxout-compressed      = 500           ; [steps] save position coordinates every 1.0 ps
+compressed-x-grps       = System
+nstlog                  = 500           ; [steps] update log file every 1.0 ps
+nstenergy               = 500           ; [steps] save energies every 1.0 ps
+energygrps              = System        ; group(s) for which to write short-ranged non-bonded Epot to the energy file, not compatible with GPUs
+;
+; BOND PARAMETERS
+continuation            = yes           ; new run, apply constraints to the start configuration
+constraint_algorithm    = lincs         ; holonomic contraints
+constraints             = h-bonds       ; constraints on h-involving bonds
+lincs_iter              = 1             ; accuracy of LINCS
+lincs_order             = 4             ; Highest order in the expasion of the constraint matrix
+;
+; NEIGHBOR SEARCHING
+cutoff-scheme           = Verlet        ; generate a pair list with buffering
+ns_type                 = grid          ; method to determine neighbor list
+nstlist                 = 10            ; frequency to update neighbor list and long-range forces
+;
+; ELECTROSTATICS and VdWAALS
+coulombtype             = PME
+pme_order               = 4             ; cubic interpolation
+vdwtype                 = cutoff
+vdw-modifier            = force-switch  ; potential-shift in the vdw potential
+rcoulomb                = 1.2           ; [nm] distance for the coulomb cut-offrcoulomb                = 1.2           ; [nm] distance for the coulomb cut-off
+rvdw-switch             = 1.0           ; [nm] distance for the force switch cut-off
+rvdw                    = 1.2           ; [nm] distance for the vdw cut-off
+epsilon_r               = 1             ; relative dielectric constant
+fourierspacing          = 0.16          ; grid spacing for FFT
+;
+; TEMPERATURE COUPLING (ON)
+tcoupl                  = V-rescale     ; modified Berendsen thermostat
+tc-grps                 = Protein_Lib    Water_and_ions   ; two coupling groups
+tau_t                   = 0.1   0.1     ; [ps] time constant for temp. coupling
+ref_t                   = 300   300     ; [K] reference temperature
+;
+; PRESSURE COUPLING     (ON)
+pcoupl                  = Parrinello-Rahman     ; barostat
+pcoupltype              = isotropic             ; uniform scaling of box vectors
+tau_p                   = 2.0                   ; [ps] time constant
+ref_p                   = 1.0                   : [bar] reference pressure
+compressibility         = 4.5e-5                ; [bar^-1] isothermal compressibility
+refcoord_scaling        = com
+;
+; PERIODIC BOUNDARY CONDITIONS
+pbc                     = xyz           ; 3-D PBC
+;
+; DISPERSION CORRECTION
+DispCorr                = EnerPres      ; apply long range dispersion corrections for E and p
+;
+; VELOCITY GENERATION
+gen_vel                 = no            ; assign velocities from Maxwell-Boltzmann distribution
+; gen-temp              = 300           ; temperature for Maxwell-Boltzmann distribution
+; gen-seed              = -1            ; random seed
